@@ -23,10 +23,11 @@
       <div v-else-if="currentStep === 'start'" class="start-survey-container">
         <h2>
           Bonjour,<br />
-          pour mieux connaître les usagers de la gare de Crecy,<br />
-          Crecy Grand Parc et la SNCF souhaiteraient en savoir plus sur votre
-          déplacement en cours.<br />
-          Auriez-vous quelques secondes à nous accorder ?»
+          pour mieux connaître les usagers de la gare de Crécy-la-Chapelle,<br />
+          <br />
+          la commune souhaite en savoir plus sur votre déplacement en cours.<br />
+          <br />
+          Acceptez-vous de répondre à quelques questions ?
         </h2>
         <h2></h2>
         <button @click="startSurvey" class="btn-next">
@@ -41,11 +42,17 @@
 
           <!-- PDF Button for Q3a and Q3a_nonvoyageur -->
           <button
-            v-if="['Q13a'].includes(currentQuestion.id)"
+            v-if="
+              ['QE5_bus', 'QS5_bus', 'QE2', 'QS2'].includes(currentQuestion.id)
+            "
             @click="showPdf = true"
             class="btn-pdf"
           >
-            Voir le plan du parking
+            {{
+              currentQuestion.id.includes("5_bus")
+                ? "Voir les lignes de bus"
+                : "Voir le plan de la ville"
+            }}
           </button>
           <!-- Standard options -->
           <div
@@ -210,7 +217,15 @@ const showPdf = ref(false);
 const streetSelections = ref({});
 const communeSelections = ref({});
 const postalCodePrefixes = ref({});
-const pdfUrl = ref("/Plan.pdf");
+const pdfUrl = computed(() => {
+  if (
+    currentQuestion.value?.id === "QE5_bus" ||
+    currentQuestion.value?.id === "QS5_bus"
+  ) {
+    return "/Bus.pdf";
+  }
+  return "/Plan.pdf";
+});
 // Firestore refs
 const surveyCollectionRef = collection(db, "Crecy");
 const counterDocRef = doc(db, "counterCrecy", "surveyCounter");
