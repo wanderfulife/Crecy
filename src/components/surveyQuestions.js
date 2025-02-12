@@ -8,7 +8,6 @@ export const questions = [
       { id: 3, text: "Autre", next: "end" }
     ]
   },
-  // Questions Entrant (prefix QE)
   {
     id: "QE1",
     text: "Quelle est la commune d'origine de votre déplacement actuel ?",
@@ -33,10 +32,10 @@ export const questions = [
       { id: 4, text: "Le Souterrain", next: "QE3" },
       { id: 5, text: "Les Hauts-Soleil", next: "QE3" },
       { id: 6, text: "Libernon", next: "QE3" },
-      { id: 7, text: "Mongrolle – la Grand Cour", next: "QE3" },
-      { id: 8, text: "Montaudier", next: "QE3" },
-      { id: 9, text: "Montbarbin", next: "QE3" },
-      { id: 10, text: "Montpichet", next: "QE3" },
+      { id: 7, text: "Mongrolle", next: "QE3" },
+      { id: 8, text: "La Grand Cour", next: "QE3" },
+      { id: 9, text: "Montaudier", next: "QE3" },
+      { id: 10, text: "Montbarbin", next: "QE3" },
       { id: 11, text: "Serbonne", next: "QE3" }
     ]
   },
@@ -82,18 +81,18 @@ export const questions = [
     ]
   },
   {
-    "id": "QE5_bus",
-    "text": "Quel est le bus utilisé ?",
-    "options": [
-      { "id": 1, "text": "Ligne 13A", "next": "QE7" },
-      { "id": 2, "text": "Ligne 17 EX", "next": "QE7" },
-      { "id": 3, "text": "Ligne 18", "next": "QE7" },
-      { "id": 4, "text": "Ligne 59", "next": "QE7" },
-      { "id": 5, "text": "Ligne 71", "next": "QE7" },
-      { "id": 6, "text": "Ligne 73", "next": "QE7" },
-      { "id": 7, "text": "Ligne 8A", "next": "QE7" },
-      { "id": 8, "text": "Ligne 8ASc", "next": "QE7" },
-      { "id": 9, "text": "Ligne 8C", "next": "QE7" }
+    id: "QE5_bus",
+    tex: "Quel est le bus utilisé ?",
+    options: [
+      { id: 1, text: "Ligne 13A", next: "QE7" },
+      { id: 2, text: "Ligne 17 EX", next: "QE7" },
+      { id: 3, text: "Ligne 18", next: "QE7" },
+      { id: 4, text: "Ligne 59", next: "QE7" },
+      { id: 5, text: "Ligne 71", next: "QE7" },
+      { id: 6, text: "Ligne 73", next: "QE7" },
+      { id: 7, text: "Ligne 8A", next: "QE7" },
+      { id: 8, text: "Ligne 8ASc", next: "QE7" },
+      { id: 9, text: "Ligne 8C", next: "QE7" }
     ]
   },
   {
@@ -188,10 +187,10 @@ export const questions = [
       { id: 4, text: "Le Souterrain", next: "QS3" },
       { id: 5, text: "Les Hauts-Soleil", next: "QS3" },
       { id: 6, text: "Libernon", next: "QS3" },
-      { id: 7, text: "Mongrolle – la Grand Cour", next: "QS3" },
-      { id: 8, text: "Montaudier", next: "QS3" },
-      { id: 9, text: "Montbarbin", next: "QS3" },
-      { id: 10, text: "Montpichet", next: "QS3" },
+      { id: 7, text: "Mongrolle", next: "QS3" },
+      { id: 8, text: "Grand", next: "QS3" },
+      { id: 9, text: "Montaudier", next: "QS3" },
+      { id: 10, text: "Montbarbin", next: "QS3" },
       { id: 11, text: "Serbonne", next: "QS3" }
     ]
   },
@@ -237,20 +236,20 @@ export const questions = [
     ]
   },
   {
-    "id": "QS5_bus",
-    "text": "Quel est le bus utilisé ?",
-    "options": [
-      { "id": 1, "text": "Ligne 13A", "next": "QS7" },
-      { "id": 2, "text": "Ligne 17 EX", "next": "QS7" },
-      { "id": 3, "text": "Ligne 18", "next": "QS7" },
-      { "id": 4, "text": "Ligne 59", "next": "QS7" },
-      { "id": 5, "text": "Ligne 71", "next": "QS7" },
-      { "id": 6, "text": "Ligne 73", "next": "QS7" },
-      { "id": 7, "text": "Ligne 8A", "next": "QS7" },
-      { "id": 8, "text": "Ligne 8ASc", "next": "QS7" },
-      { "id": 9, "text": "Ligne 8C", "next": "QS7" }
+id: QS5_bus,
+    text: "Quel est le bus utilisé ?",
+    options: [
+      { id: 1, text: "Ligne 13A", next: "QS7" },
+      { id: 2, text: "Ligne 17 EX", next: "QS7" },
+      { id: 3, text: "Ligne 18", next: "QS7" },
+      { id: 4, text: "Ligne 59", next: "QS7" },
+      { id: 5, text: "Ligne 71", next: "QS7" },
+      { id: 6, text: "Ligne 73", next: "QS7" },
+      { id: 7, text: "Ligne 8A", next: "QS7" },
+      { id: 8, text: "Ligne 8ASc", next: "QS7" },
+      { id: 9, text: "Ligne 8C", next: "QS7" }
     ]
-  },
+  },    
   {
     id: "QS5_precision",
     text: "Préciser le mode de transport :",
