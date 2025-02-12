@@ -157,28 +157,96 @@ const downloadData = async () => {
     // Track which questions have been added to avoid duplicates
     const addedQuestions = new Set();
 
-    // Add question headers based on the survey flow
+    // First add Q1 if it exists
     props.questions.forEach((question) => {
-      // Skip questions we've already handled
-      if (addedQuestions.has(question.id)) return;
+      if (question.id === "Q1") {
+        headerOrder.push(question.id);
+        addedQuestions.add(question.id);
+      }
+    });
 
-      // For QE1/QS1, add all related fields
-      if (question.id === "QE1" || question.id === "QS1") {
+    // Then add QE1 and QS1 first (special cases)
+    headerOrder.push(
+      "QE1",
+      "QE1_COMMUNE",
+      "QE1_CODE_INSEE",
+      "QE1_COMMUNE_LIBRE"
+    );
+    addedQuestions.add("QE1");
+    addedQuestions.add("QE1_precision"); // Add to prevent it from being added later
+
+    headerOrder.push(
+      "QS1",
+      "QS1_COMMUNE",
+      "QS1_CODE_INSEE",
+      "QS1_COMMUNE_LIBRE"
+    );
+    addedQuestions.add("QS1");
+    addedQuestions.add("QS1_precision"); // Add to prevent it from being added later
+
+    // Then add remaining QE questions
+    props.questions.forEach((question) => {
+      if (
+        question.id.startsWith("QE") &&
+        question.id !== "QE1" &&
+        !question.id.includes("precision")
+      ) {
+        if (question.usesCommuneSelector) {
+          headerOrder.push(
+            question.id,
+            `${question.id}_COMMUNE`,
+            `${question.id}_CODE_INSEE`,
+            `${question.id}_COMMUNE_LIBRE`
+          );
+        } else {
+          headerOrder.push(question.id);
+        }
+        addedQuestions.add(question.id);
+        addedQuestions.add(`${question.id}_precision`);
+      }
+    });
+
+    // Then add remaining QS questions
+    props.questions.forEach((question) => {
+      if (
+        question.id.startsWith("QS") &&
+        question.id !== "QS1" &&
+        !question.id.includes("precision")
+      ) {
+        if (question.usesCommuneSelector) {
+          headerOrder.push(
+            question.id,
+            `${question.id}_COMMUNE`,
+            `${question.id}_CODE_INSEE`,
+            `${question.id}_COMMUNE_LIBRE`
+          );
+        } else {
+          headerOrder.push(question.id);
+        }
+        addedQuestions.add(question.id);
+        addedQuestions.add(`${question.id}_precision`);
+      }
+    });
+
+    // Then add any remaining questions (excluding precision)
+    props.questions.forEach((question) => {
+      // Skip questions we've already handled or precision questions
+      if (addedQuestions.has(question.id) || question.id.includes("precision"))
+        return;
+
+      // For all questions that use commune selector, add all related fields
+      if (question.usesCommuneSelector) {
         headerOrder.push(
           question.id,
           `${question.id}_COMMUNE`,
           `${question.id}_CODE_INSEE`,
           `${question.id}_COMMUNE_LIBRE`
         );
-        // Mark both main question and precision question as handled
-        addedQuestions.add(question.id);
-        addedQuestions.add(`${question.id}_precision`);
-      }
-      // For regular questions (not precision questions), just add the question ID
-      else if (!question.id.endsWith("_precision")) {
+      } else {
         headerOrder.push(question.id);
-        addedQuestions.add(question.id);
       }
+      addedQuestions.add(question.id);
+      addedQuestions.add(`${question.id}_precision`);
     });
 
     const data = querySnapshot.docs.map((doc) => {
@@ -197,20 +265,49 @@ const downloadData = async () => {
         }
       });
 
+      console.log("Processing document:", docData); // Debug log
+
       // Handle Crecy selections for QE1 and QS1
-      if (docData.QE1 === 1) {
+      if (docData.QE1 === 1 || docData.QE1 === "1") {
         row.QE1 = 1;
         row.QE1_COMMUNE = "CRECY LA CHAPELLE";
         row.QE1_CODE_INSEE = "77142";
         row.QE1_COMMUNE_LIBRE = "";
+      } else if (
+        docData.QE1_COMMUNE &&
+        docData.QE1_COMMUNE !== "CRECY LA CHAPELLE"
+      ) {
+        // If any other commune is selected, set QE1 to 2
+        row.QE1 = 2;
+        row.QE1_COMMUNE = docData.QE1_COMMUNE || "";
+        row.QE1_CODE_INSEE = docData.QE1_CODE_INSEE || "";
+        row.QE1_COMMUNE_LIBRE = docData.QE1_COMMUNE_LIBRE || "";
       }
-      if (docData.QS1 === 1) {
+
+      if (docData.QS1 === 1 || docData.QS1 === "1") {
         row.QS1 = 1;
         row.QS1_COMMUNE = "CRECY LA CHAPELLE";
         row.QS1_CODE_INSEE = "77142";
         row.QS1_COMMUNE_LIBRE = "";
+      } else if (
+        docData.QS1_COMMUNE &&
+        docData.QS1_COMMUNE !== "CRECY LA CHAPELLE"
+      ) {
+        // If any other commune is selected, set QS1 to 2
+        row.QS1 = 2;
+        row.QS1_COMMUNE = docData.QS1_COMMUNE || "";
+        row.QS1_CODE_INSEE = docData.QS1_CODE_INSEE || "";
+        row.QS1_COMMUNE_LIBRE = docData.QS1_COMMUNE_LIBRE || "";
       }
 
+      // Remove empty values
+      Object.keys(row).forEach((key) => {
+        if (row[key] === "") {
+          delete row[key];
+        }
+      });
+
+      console.log("Final row data:", row); // Debug log
       return row;
     });
 

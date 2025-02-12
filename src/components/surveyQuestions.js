@@ -20,7 +20,7 @@ export const questions = [
     id: "QE1_precision",
     text: "Précisez la commune",
     usesCommuneSelector: true,
-    next: "QE3",
+    next: "QE2",
   },
   {
     id: "QE2",
@@ -41,25 +41,31 @@ export const questions = [
   },
   {
     id: "QE3",
-    text: "Quel est le motif principal de votre déplacement",
-    options: [
-      { id: 1, text: "Lieu de travail", next: "QE4" },
-      { id: 2, text: "Ecole/scolaire", next: "QE4" },
-      { id: 3, text: "études supérieures", next: "QE4" },
-      { id: 4, text: "loisirs", next: "QE4" },
-      { id: 5, text: "démarches administratives", next: "QE4" },
-      { id: 6, text: "autre, à préciser :", next: "QE3_precision" }
-    ]
+    text: "Quelle est votre gare ou arrêt bus de descente de votre déplacement actuel ?",
+    freeText: true,
+    next: "QE3_2"
   },
   {
-    id: "QE3_precision",
-    text: "Préciser le motif de votre déplacement :",
-    freeText: true,
+    id: "QE3_2",
+    text: "Précisez la commune",
+    usesCommuneSelector: true,
     next: "QE4"
   },
   {
     id: "QE4",
-    text: "Quelle est votre gare ou arrêt bus de descente de votre déplacement actuel ?",
+    text: "Quel est le motif principal de votre déplacement",
+    options: [
+      { id: 1, text: "Lieu de travail", next: "QE5" },
+      { id: 2, text: "Ecole/scolaire", next: "QE5" },
+      { id: 3, text: "études supérieures", next: "QE5" },
+      { id: 4, text: "loisirs", next: "QE5" },
+      { id: 5, text: "démarches administratives", next: "QE5" },
+      { id: 6, text: "autre, à préciser :", next: "QE4_precision" }
+    ]
+  },
+  {
+    id: "QE4_precision",
+    text: "Préciser le motif de votre déplacement :",
     freeText: true,
     next: "QE5"
   },
@@ -84,15 +90,20 @@ export const questions = [
     id: "QE5_bus",
     tex: "Quel est le bus utilisé ?",
     options: [
-      { id: 1, text: "Ligne 13A", next: "QE7" },
-      { id: 2, text: "Ligne 17 EX", next: "QE7" },
-      { id: 3, text: "Ligne 18", next: "QE7" },
-      { id: 4, text: "Ligne 59", next: "QE7" },
-      { id: 5, text: "Ligne 71", next: "QE7" },
-      { id: 6, text: "Ligne 73", next: "QE7" },
-      { id: 7, text: "Ligne 8A", next: "QE7" },
-      { id: 8, text: "Ligne 8ASc", next: "QE7" },
-      { id: 9, text: "Ligne 8C", next: "QE7" }
+      { id: 1, text: "Ligne 8A", next: "QE7" },
+      { id: 2, text: "Ligne 8A Sco", next: "QE7" },
+      { id: 3, text: "Ligne 8B", next: "QE7" },
+      { id: 4, text: "Ligne 8C", next: "QE7" },
+      { id: 5, text: "Ligne 12", next: "QE7" },
+      { id: 6, text: "Ligne 13A", next: "QE7" },
+      { id: 7, text: "Ligne 13B", next: "QE7" },
+      { id: 8, text: "Ligne 17 Express", next: "QE7" },
+      { id: 9, text: "Ligne 18", next: "QE7" },
+      { id: 10, text: "Ligne 59", next: "QE7" },
+      { id: 11, text: "Ligne 71", next: "QE7" },
+      { id: 12, text: "Ligne 73", next: "QE7" },
+      { id: 13, text: "Ligne TàD Nord", next: "QE7" },
+      { id: 14, text: "Ligne TàD Sud", next: "QE7" }
     ]
   },
   {
@@ -216,6 +227,12 @@ export const questions = [
     id: "QS4",
     text: "Quelle est la gare ou arrêt bus de montée de votre déplacement actuel ?",
     freeText: true,
+    next: "QS4_2"
+  },
+  {
+    id: "QS4_2",
+    text: "Précisez la commune",
+    usesCommuneSelector: true,
     next: "QS5"
   },
   {
@@ -236,20 +253,25 @@ export const questions = [
     ]
   },
   {
-id: QS5_bus,
-    text: "Quel est le bus utilisé ?",
+    id: "QS5_bus",
+    tex: "Quel est le bus utilisé ?",
     options: [
-      { id: 1, text: "Ligne 13A", next: "QS7" },
-      { id: 2, text: "Ligne 17 EX", next: "QS7" },
-      { id: 3, text: "Ligne 18", next: "QS7" },
-      { id: 4, text: "Ligne 59", next: "QS7" },
-      { id: 5, text: "Ligne 71", next: "QS7" },
-      { id: 6, text: "Ligne 73", next: "QS7" },
-      { id: 7, text: "Ligne 8A", next: "QS7" },
-      { id: 8, text: "Ligne 8ASc", next: "QS7" },
-      { id: 9, text: "Ligne 8C", next: "QS7" }
+      { id: 1, text: "Ligne 8A", next: "QS7" },
+      { id: 2, text: "Ligne 8A Sco", next: "QS7" },
+      { id: 3, text: "Ligne 8B", next: "QS7" },
+      { id: 4, text: "Ligne 8C", next: "QS7" },
+      { id: 5, text: "Ligne 12", next: "QS7" },
+      { id: 6, text: "Ligne 13A", next: "QS7" },
+      { id: 7, text: "Ligne 13B", next: "QS7" },
+      { id: 8, text: "Ligne 17 Express", next: "QS7" },
+      { id: 9, text: "Ligne 18", next: "QS7" },
+      { id: 10, text: "Ligne 59", next: "QS7" },
+      { id: 11, text: "Ligne 71", next: "QS7" },
+      { id: 12, text: "Ligne 73", next: "QS7" },
+      { id: 13, text: "Ligne TàD Nord", next: "QS7" },
+      { id: 14, text: "Ligne TàD Sud", next: "QS7" }
     ]
-  },    
+  },
   {
     id: "QS5_precision",
     text: "Préciser le mode de transport :",

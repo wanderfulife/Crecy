@@ -427,19 +427,16 @@ const handleCommuneSelection = () => {
       if (parts.length === 2) {
         // A commune was selected from the list
         const [commune, codeInsee] = parts;
+        answers.value[baseQuestionId] = commune; // Set the base question value
         answers.value[`${baseQuestionId}_COMMUNE`] = commune;
         answers.value[`${baseQuestionId}_CODE_INSEE`] = codeInsee;
         answers.value[`${baseQuestionId}_COMMUNE_LIBRE`] = "";
       } else {
         // Free input was used
+        answers.value[baseQuestionId] = selectedValue.trim(); // Set the base question value
         answers.value[`${baseQuestionId}_COMMUNE`] = "";
         answers.value[`${baseQuestionId}_CODE_INSEE`] = "";
         answers.value[`${baseQuestionId}_COMMUNE_LIBRE`] = selectedValue.trim();
-      }
-
-      // Ensure the base question (QE1/QS1) has value 2 (Autres, à préciser)
-      if (baseQuestionId === "QE1" || baseQuestionId === "QS1") {
-        answers.value[baseQuestionId] = 2;
       }
 
       nextQuestion();
